@@ -1,0 +1,40 @@
+# ===================================================================
+# Dependencies for LD-VQN (Anonymous TPAMI Submission)
+# Python compatibility: >= 3.10
+# 
+# Installation instruction for CUDA 11.8:
+# pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu118
+# ===================================================================
+
+# 1. Core PyTorch Ecosystem (Pinned for absolute reproducibility)
+torch==2.1.0
+torchvision==0.16.0
+torchaudio==2.1.0
+
+# 2. Vision Models and Image Processing
+Pillow>=9.5.0
+opencv-python>=4.8.0          # Required for visualizing attention heatmaps (Fig 9)
+timm>=0.9.0                   # PyTorch Image Models (Provides ViT/SigLIP backbones)
+
+# 3. Text Processing and Multimodal Alignment
+transformers>=4.33.0          # DeBERTa backbone and Tokenizer
+tokenizers>=0.13.3
+
+# 4. Scientific Computation & Evaluation Metrics
+numpy>=1.24.0
+scipy>=1.10.0
+pandas>=2.0.0
+scikit-learn>=1.2.0           # Required for t-SNE and k-reciprocal re-ranking
+
+# 5. Deep Learning Architecture Utilities
+einops>=0.6.1                 # Advanced tensor routing for the D-TCR module
+tensorboard>=2.13.0           # Training trajectory logging
+
+# 6. Qualitative Visualization
+matplotlib>=3.7.0             # Generating plots for Figure 9 and 11
+seaborn>=0.12.0               # High-fidelity t-SNE distribution plots
+
+# 7. Configuration & Project Management
+PyYAML>=6.0                   # Config parsing
+yacs>=0.1.8                   # Hierarchical experiment configuration
+tqdm>=4.65.0                  # Command-line progress tracking

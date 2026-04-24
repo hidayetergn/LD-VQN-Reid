@@ -1,0 +1,56 @@
+name: ldvqn_env
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  # ==========================================
+  # Core Python & Base Environment
+  # ==========================================
+  - python=3.10.*
+  - pip
+  - setuptools
+  - wheel
+
+  # ==========================================
+  # PyTorch Ecosystem (GPU/CUDA Accelerated)
+  # ==========================================
+  - pytorch=2.1.0
+  - torchvision=0.16.0
+  - torchaudio=2.1.0
+  - pytorch-cuda=11.8
+
+  # ==========================================
+  # Scientific Computation & Data Processing
+  # ==========================================
+  - numpy>=1.24.0
+  - scipy>=1.10.0
+  - pandas>=2.0.0
+  - scikit-learn>=1.2.0    # Required for t-SNE and k-reciprocal re-ranking metrics
+  - pillow>=9.5.0          # Required for ImageFile.LOAD_TRUNCATED_IMAGES safety
+
+  # ==========================================
+  # Utilities & Visualization
+  # ==========================================
+  - pyyaml>=6.0            # Required for parsing configs/*.yml files
+  - tqdm>=4.65.0           # Progress bars for training loops
+  - matplotlib>=3.7.0      # Required for Figure 9 and Figure 11 generation
+  - seaborn>=0.12.0        # Advanced statistical data visualization (t-SNE)
+  - tensorboard>=2.13.0    # For monitoring loss curves and LR schedules
+
+  # ==========================================
+  # PIP Specific Dependencies (HuggingFace, etc.)
+  # ==========================================
+  - pip:
+    - transformers>=4.33.0 # Core dependency for DeBERTa Tokenizer and Text Backbone
+    - tokenizers>=0.13.3   # Fast tokenizers backing HuggingFace
+    - opencv-python>=4.8.0 # For overlaying attention heatmaps on raw images (Fig 9)
+    - einops>=0.6.1        # Elegant tensor manipulations (used in MLA and D-TCR routing)
+    - yacs>=0.1.8          # Yet Another Configuration System (Robust YAML management)
+    - timm>=0.9.0          # PyTorch Image Models (Provides the Vision Transformer backbone)
+
+# Instructions for Reviewers:
+# 1. Ensure you have the appropriate NVIDIA drivers for CUDA 11.8 installed.
+# 2. Run `conda env create -f environment.yml`
+# 3. Run `conda activate ldvqn_env`
