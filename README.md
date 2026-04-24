@@ -1,5 +1,5 @@
 # LD-VQN-Reid
-Linguistically Driven Visual Query Network (LD-VQN)
+Beyond Coarse Labels: A Large-Scale Multimodal Benchmark and Linguistically Driven for Vehicle Re-Identification (LD-VQN)
 ```bash
 ├── configs/                     # Eğitim ve test konfigürasyonları (Hyperparameters)
 │   ├── veri776_ldvqn.yml
