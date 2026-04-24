@@ -40,14 +40,14 @@ Beyond Coarse Labels: A Large-Scale Multimodal Benchmark and Linguistically Driv
 
 Official PyTorch implementation of **LD-VQN**, a novel cross-modal architecture for fine-grained Vehicle Re-Identification. We introduce the first large-scale multimodal benchmark featuring over 417,000 unconstrained natural language descriptions to resolve the "semantic bottleneck" in current Vision-Language Models (VLMs).
 
-## 🚀 Highlights / TL;DR
+## 🚀 Highlights
 - **417K Multimodal Corpus:** We semantically enriched VeRi-776 and VehicleID datasets with high-density textual descriptions, bridging the gap between macroscopic shapes and instance-level primitives (e.g., custom decals, specific grille geometries).
 - **Multi-Level Adapter (MLA):** Rescues early-stage textural primitives from the vision backbone before they homogenize.
 - **Dynamic Text-Conditioned Routing (D-TCR):** Dynamically infers spatial adjacency directly from text, routing specific linguistic tokens to exact geometric coordinates.
 - **Orthogonal Disentanglement Loss:** Mathematically forces latent semantic nodes toward a $\pi/2$ separation, strictly preventing attention collapse.
 
 <div align="center">
-  <img src="[results/](https://github.com/hidayetergn/LD-VQN-Reid/tree/main/results)" alt="LD-VQN_Architecture">
+  <img src="[[results/](https://github.com/hidayetergn/LD-VQN-Reid/tree/main/results)](https://github.com/hidayetergn/LD-VQN-Reid/blob/main/results/LD-VQN_Architecture.png)" alt="LD-VQN_Architecture">
   <p><em>Figure 1: Overall architecture of the proposed LD-VQN.</em></p>
 </div>
 
