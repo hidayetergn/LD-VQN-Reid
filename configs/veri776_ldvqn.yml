@@ -1,0 +1,78 @@
+# =========================================================
+# EXPERIMENT CONFIGURATION: VeRi-776 Dataset
+# Model: Linguistically Driven Visual Query Network (LD-VQN)
+# =========================================================
+
+DATA:
+  DATASET: "VeRi-776"
+  ROOT_DIR: "./data/VeRi"
+  TRAIN_JSONL: "./data/VeRi/image_train.jsonl"
+  QUERY_JSONL: "./data/VeRi/image_query.jsonl"
+  TEST_JSONL: "./data/VeRi/image_test.jsonl"
+  
+  # Vision Preprocessing
+  IMG_RESIZE: [350, 350]      # Initial resize before augmentation
+  IMG_CROP: [336, 336]        # Final input resolution
+  RANDOM_FLIP: True           # Horizontal flipping probability 0.5
+  
+  # Text Preprocessing
+  MAX_SEQ_LENGTH: 128         # Accommodating dense semantic descriptions
+
+DATALOADER:
+  SAMPLER: "RandomIdentitySampler"
+  BATCH_SIZE: 64              # Physical batch size
+  NUM_INSTANCES: 4            # Number of instances per identity (P * K = 16 * 4)
+  NUM_WORKERS: 8
+
+MODEL:
+  NAME: "LD-VQN"
+  VISION_BACKBONE: "ViT-B/16" # Pre-trained Vision Encoder (CLIP/SigLIP)
+  TEXT_BACKBONE: "DeBERTa"    # Pre-trained Text Encoder
+  
+  # Multi-Level Adapter (MLA)
+  MLA:
+    ANCHOR_LAYERS: [5, 11, 17, 23, -1] # Extracted hierarchical depths
+    BOTTLENECK_DIM_FACTOR: 4           # Dimension reduction factor (K=4)
+
+  # Dynamic Text-Conditioned Routing (D-TCR)
+  DTCR:
+    NUM_COMPONENTS: 16        # Number of latent semantic nodes (M=16)
+    NUM_HEADS: 8              # Multi-Head Attention parameter
+    DROPOUT: 0.1
+
+LOSS:
+  # Cross-Entropy Loss
+  CE_LOSS:
+    ENABLED: True
+    LABEL_SMOOTHING: 0.1
+
+  # Cross-Batch Memory (XBM) Augmented Triplet Loss
+  TRIPLET_LOSS:
+    ENABLED: True
+    MARGIN: 0.3
+    XBM_CAPACITY: 5000        # First-In-First-Out memory queue size
+    XBM_START_EPOCH: 5        # Warm-up phase duration before XBM activation
+
+  # Orthogonal Disentanglement Loss (Novelty)
+  ORTHOGONAL_LOSS:
+    ENABLED: True
+    WEIGHT: 0.1               # Lambda_ortho scaling factor
+
+SOLVER:
+  OPTIMIZER: "AdamW"
+  WEIGHT_DECAY: 1e-4
+  
+  # Dual Learning Rate Strategy
+  LR_BACKBONE: 1e-6           # Conservative update for pre-trained parameters
+  LR_CUSTOM: 1e-4             # Faster update for MLA, D-TCR, and Classifier
+  
+  SCHEDULER: "CosineAnnealingLR"
+  MAX_EPOCHS: 120
+  
+  # Gradient Management
+  ACCUMULATE_STEPS: 4         # Simulates effective batch size of 256
+  GRAD_CLIP_MAX_NORM: 1.0     # Mitigates gradient explosion
+
+EVALUATION:
+  EVAL_PERIOD: 5              # Evaluate on test set every 5 epochs
+  RERANKING: True             # Apply k-reciprocal re-ranking during inference

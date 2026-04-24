@@ -1,0 +1,77 @@
+# =========================================================
+# EXPERIMENT CONFIGURATION: VehicleID Dataset
+# Model: Linguistically Driven Visual Query Network (LD-VQN)
+# =========================================================
+
+DATA:
+  DATASET: "VehicleID"
+  ROOT_DIR: "./data/VehicleID"
+  TRAIN_JSONL: "./data/VehicleID/train_list.jsonl"
+  
+  # Progressive Test Splits (Evaluating algorithmic degradation)
+  TEST_SPLITS: 
+    - "./data/VehicleID/test_list_800.jsonl"
+    - "./data/VehicleID/test_list_1600.jsonl"
+    - "./data/VehicleID/test_list_2400.jsonl"
+    - "./data/VehicleID/test_list_3200.jsonl"
+    - "./data/VehicleID/test_list_6000.jsonl"
+    - "./data/VehicleID/test_list_13164.jsonl"
+  
+  # Vision Preprocessing
+  IMG_RESIZE: [350, 350]
+  IMG_CROP: [336, 336]
+  RANDOM_FLIP: True
+  
+  # Text Preprocessing
+  MAX_SEQ_LENGTH: 128
+
+DATALOADER:
+  SAMPLER: "RandomIdentitySampler"
+  BATCH_SIZE: 64
+  NUM_INSTANCES: 4
+  NUM_WORKERS: 8
+
+MODEL:
+  NAME: "LD-VQN"
+  VISION_BACKBONE: "ViT-B/16"
+  TEXT_BACKBONE: "DeBERTa"
+  
+  MLA:
+    ANCHOR_LAYERS: [5, 11, 17, 23, -1]
+    BOTTLENECK_DIM_FACTOR: 4
+
+  DTCR:
+    NUM_COMPONENTS: 16
+    NUM_HEADS: 8
+    DROPOUT: 0.1
+
+LOSS:
+  CE_LOSS:
+    ENABLED: True
+    LABEL_SMOOTHING: 0.1
+
+  TRIPLET_LOSS:
+    ENABLED: True
+    MARGIN: 0.3
+    XBM_CAPACITY: 5000
+    XBM_START_EPOCH: 5
+
+  ORTHOGONAL_LOSS:
+    ENABLED: True
+    WEIGHT: 0.1
+
+SOLVER:
+  OPTIMIZER: "AdamW"
+  WEIGHT_DECAY: 1e-4
+  LR_BACKBONE: 1e-6
+  LR_CUSTOM: 1e-4
+  
+  SCHEDULER: "CosineAnnealingLR"
+  MAX_EPOCHS: 120
+  
+  ACCUMULATE_STEPS: 4
+  GRAD_CLIP_MAX_NORM: 1.0
+
+EVALUATION:
+  EVAL_PERIOD: 5
+  RERANKING: True
