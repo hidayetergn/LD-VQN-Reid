@@ -47,7 +47,7 @@ Official PyTorch implementation of **LD-VQN**, a novel cross-modal architecture 
 - **Orthogonal Disentanglement Loss:** Mathematically forces latent semantic nodes toward a $\pi/2$ separation, strictly preventing attention collapse.
 
 <div align="center">
-  <img src="https://via.placeholder.com/800x400?text=Insert+Figure+6+(Overall+Architecture)+Here" alt="LD-VQN Architecture">
+  <img src="results/" alt="LD-VQN_Architecture">
   <p><em>Figure 1: Overall architecture of the proposed LD-VQN.</em></p>
 </div>
 
