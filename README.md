@@ -1,6 +1,6 @@
 # LD-VQN-Reid
 Linguistically Driven Visual Query Network (LD-VQN)
-
+```bash
 ├── configs/                     # Eğitim ve test konfigürasyonları (Hyperparameters)
 │   ├── veri776_ldvqn.yml
 │   └── vehicleid_ldvqn.yml
@@ -30,9 +30,7 @@ Linguistically Driven Visual Query Network (LD-VQN)
 ├── train.py                     # Ana eğitim döngüsü (Algorithm 1)
 ├── test.py                      # Değerlendirme ve mAP/Rank hesaplama
 └── README.md              
-
-
-# Breaking the Semantic Bottleneck: Linguistically Driven Visual Query Networks (LD-VQN)
+```
 
 [![Paper](https://img.shields.io/badge/Paper-Anonymous%20Submission-blue.svg)](link_to_pdf)
 [![Pytorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?e&logo=PyTorch&logoColor=white)](https://pytorch.org/)
